@@ -414,6 +414,8 @@ fi
 
 ###################################################################
 
+${SED_INLINE} 's/#define FFMPEG_CONFIGURATION.*/#define FFMPEG_CONFIGURATION ""/' configure 1>>"${BASEDIR}"/build.log 2>&1 || return 1
+
 ./configure \
   --cross-prefix="${HOST}-" \
   --sysroot="${ANDROID_SYSROOT}" \
