@@ -31,7 +31,7 @@
 
 - Use this NDK for compatibility: 
 ```bash
-android-ndk-r25c
+android-ndk-r27
 ```
 
 ---
@@ -40,10 +40,10 @@ android-ndk-r25c
 Run these commands in `BASH` shell:
 ```bash
 unset ANDROID_NDK_ROOT
-export ANDROID_NDK_HOME=/home/USERNAME/android-ndk-r25c
-export NDK=/home/USERNAME/android-ndk-r25c
-export PATH=/home/USERNAME/android-ndk-r25c:/home/USERNAME/android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
-export ANDROID_NDK_ROOT=/home/USERNAME/android-ndk-r25c
+export ANDROID_NDK_HOME=/home/USERNAME/android-ndk-r27
+export NDK=/home/USERNAME/android-ndk-r27
+export PATH=/home/USERNAME/android-ndk-r27:/home/USERNAME/android-ndk-r27/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+export ANDROID_NDK_ROOT=/home/USERNAME/android-ndk-r27
 ```
 _replace `USERNAME` with your desktop username_
 
@@ -80,9 +80,9 @@ Google request developers to build new with new r27 and r28 ndk but ffmpeg-kit h
 <i>Edit: As original devs said, master branch has been tested upto NDK r27.</i>
 
 </p>
-Lucky for us, there is a version of ndk r23 and r25 in CI which supports 16KB page sizes too.
+Lucky for us, NDK r27 is officially released and supports 16KB page sizes.
 make sure to download this ndk version and compile ffmpeg-kit with this ndk only.<br/>
-NDK : <a href="https://ci.android.com/builds/branches/aosp-ndk-release-r23/grid">R23</a> <a href="https://ci.android.com/builds/branches/aosp-ndk-r25-release/grid">R25</a>
+NDK : <a href="https://developer.android.com/ndk/downloads">Official NDK r27</a>
 </p>
 You can find all details related to this update here. https://developer.android.com/guide/practices/page-sizes
 </br>
