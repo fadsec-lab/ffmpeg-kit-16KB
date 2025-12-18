@@ -27,6 +27,20 @@ export DETECTED_NDK_VERSION=$(grep -Eo "Revision.*" "${ANDROID_NDK_ROOT}"/source
 echo -e "\nINFO: Using Android NDK v${DETECTED_NDK_VERSION} provided at ${ANDROID_NDK_ROOT}\n" 1>>"${BASEDIR}"/build.log 2>&1
 echo -e "INFO: Build options: $*\n" 1>>"${BASEDIR}"/build.log 2>&1
 
+# Workaround: some NDK toolchain static archives can cause configure/link issues
+# If NDK version looks like r27*, back up and remove .a files from the llvm prebuilt lib folder
+NDK_LIB_DIR="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/linux-x86_64/lib"
+if [[ -d "${NDK_LIB_DIR}" && "${DETECTED_NDK_VERSION}" == 27* ]]; then
+  echo -e "INFO: Applying NDK lib workaround: backing up and removing .a files in ${NDK_LIB_DIR}\n" 1>>"${BASEDIR}"/build.log 2>&1
+  mkdir -p "${BASEDIR}/ndk-lib-backup" 1>>"${BASEDIR}"/build.log 2>&1
+  for a in "${NDK_LIB_DIR}"/*.a; do
+    [ -e "${a}" ] || continue
+    cp -a "${a}" "${BASEDIR}/ndk-lib-backup/" 1>>"${BASEDIR}"/build.log 2>&1 || true
+    rm -f "${a}" 1>>"${BASEDIR}"/build.log 2>&1 || true
+  done
+  echo -e "INFO: NDK lib workaround applied (backup at ${BASEDIR}/ndk-lib-backup)\n" 1>>"${BASEDIR}"/build.log 2>&1
+fi
+
 # SET DEFAULT BUILD OPTIONS
 export GPL_ENABLED="no"
 DISPLAY_HELP=""
